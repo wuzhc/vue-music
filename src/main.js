@@ -1,6 +1,12 @@
+import 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import 'common/stylus/index.styl'
+import fastclick from 'fastclick'
+
+// 移动端点击３００秒延迟问题
+fastclick.attach(document.body)
 
 Vue.config.productionTip = false
 
