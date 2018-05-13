@@ -1,0 +1,1 @@
+import originJSON from 'jsonp'
