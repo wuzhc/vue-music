@@ -1,6 +1,6 @@
 <template>
 	<div class="recommend">
-		<scroll class="recommend-content">
+		<scroll class="recommend-content" :data="discList" ref="scroll">
 			<div>
 				<!-- 轮播图start -->
 				<div class="recommend-slider">
@@ -8,7 +8,7 @@
 						<slider>
 							<div v-for="item in recommends">
 								<a :href="item.linkUrl">
-									<img :src="item.picUrl">
+									<img :src="item.picUrl" @load="loadImg">
 								</a>
 							</div>
 					</slider>
@@ -31,12 +31,12 @@
 					</ul>
 				</div>
 				<!-- 推荐列表end -->
-				<!-- 加载动画 -->
-				<div class="loading-container" v-show="!discList.length">
-					<loading></loading>
-				</div>
-				<!-- 加载动画end -->
 			</div> 
+			<!-- 加载动画 -->
+			<div class="loading-container" v-show="!discList.length">
+				<loading></loading>
+			</div>
+			<!-- 加载动画end -->
 		</scroll>
 	</div>
 </template>
@@ -63,7 +63,7 @@ export default {
 		_getRecommend() {
 			getRecommend().then((res) => {
 				if (res.code === ERR_OK) {
-					this.recommends = res.data.slider;
+					this.recommends = res.data.slider
 				}
 			});
 		},
@@ -73,6 +73,12 @@ export default {
 					this.discList = res.data.list
 				}
 			})
+		},
+		loadImg() {
+			if (!this.loadImgFlag) {
+				this.$refs.scroll.refresh()
+				this.loadImgFlag = true
+			}
 		}
 	},
 	components: {

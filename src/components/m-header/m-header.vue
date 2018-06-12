@@ -1,6 +1,6 @@
 <template>
   <div class="m-header">
-    <div class="logo"></div>
+    <!-- <div class="logo"></div> -->
     <div class="title">Wuzhc Music</div>
   </div>
 </template>
