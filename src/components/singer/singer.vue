@@ -10,6 +10,9 @@
   import {getSingerList} from 'api/singer'
   import {ERR_OK} from 'api/config'
   import Singer from 'common/js/singer'
+  import {SET_SINGER} from 'store/mutation-types'
+
+  import {mapGetters, mapMutations} from 'vuex'
 
   const HOT_NAME = '热'
   const HOT_SINGER_LENGTH = 10
@@ -27,10 +30,14 @@
       this._getSingerList()
     },
     methods: {
+      ...mapMutations({
+        setSinger: SET_SINGER
+      }),
       selectItem(singer) {
         this.$router.push({
           path: `/singer/${singer.id}`
         })
+        this.setSinger(singer)
       },
       _getSingerList() {
         getSingerList().then((res) => {

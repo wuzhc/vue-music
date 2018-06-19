@@ -201,6 +201,7 @@ export default {
           overflow: hidden
           .desc
             color: $color-text-d
+            font-size: $font-size-small-s
           .name
             color: $color-text
   .fix-short

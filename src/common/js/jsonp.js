@@ -1,8 +1,7 @@
 import originJSON from 'jsonp'
 
-export default function jsonp(url, data, option) {
-  url += (url.indexOf('?') > 0 ? '&' : '?') + querystring(data)
-  console.log(url)
+export default function jsonp(url, params, option) {
+  url += (url.indexOf('?') > 0 ? '&' : '?') + querystring(params)
   return new Promise((resolve, reject) => {
     originJSON(url, option, (err, data) => {
       if (!err) {
@@ -14,10 +13,14 @@ export default function jsonp(url, data, option) {
   });
 }
 
-function querystring(data) {
+function querystring(params) {
+  if (!params) {
+    return '';
+  }
+  
   var querystring = '';
-  for (let k in data) {
-    let value = data[k] !== undefined ? data[k] : '';
+  for (let k in params) {
+    let value = params[k] !== undefined ? params[k] : '';
     querystring += `&${k}=${encodeURIComponent(value)}`;
   }
   return querystring ? querystring.substring(1) : '';
